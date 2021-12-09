@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     # Writes the dictionary to a file
     # (Using the timestamp from above to create unique filenames. Should probably use something better in production)-OC
-    with open('data'+timestamp+'.txt', 'w') as outfile:
+    with open('data'+timestamp+'.json', 'w') as outfile:
         json.dump(pulse_data, outfile)
 
