@@ -22,7 +22,7 @@ if __name__ == '__main__':
     next_pulse=12345
 
     # reads in pulse data from a file
-    IQ_data = pd.read_csv('pulse_short.csv').to_dict()
+    IQ_data = pd.read_csv('pulse_short.csv').to_dict(orient='list')
 
     # creates a timestamp for the pulse
     # (this should probably not be done at write time, but is here for demo purposes - OC)
