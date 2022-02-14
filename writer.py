@@ -6,33 +6,20 @@ import json
 from datetime import datetime
 import pandas as pd
 
-def read_pulse_from_csv(pulse_data, csv_file, pulseID):
-    # reads in pulse data from a file
-    IQ_data = pd.read_csv(csv_file).to_dict(orient='list')
-    # creates a timestamp for the pulse
-    # (this should probably not be done at write time, but is here for demo purposes - OC)
-    timestamp_format = '%Y%m%d%H%M%S%f'
-    timestamp = datetime.now().strftime(timestamp_format)
-
-    # appends the demo pulse to the list of pulses
-    pulse_data['pulses'].append(
-        {
-        'pulseID': pulseID,
-        'timestamp': timestamp,
-        'timestamp_format': timestamp_format,
-        'IQ_data': IQ_data
-        })
-
 def append_pulse(pulse_dict,
-                 IQ_data,
-                 timestamp_format = '%Y%m%d%H%M%S%f', timestamp = datetime.now().strftime('%Y%m%d%H%M%S%f'), pulseID=0):
+                 I_data,
+                 Q_data,
+                 timestamp_format = '%Y%m%d%H%M%S%f',
+                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S%f'),
+                 pulseID=0):
     # appends the demo pulse to the list of pulses
     pulse_dict['pulses'].append(
         {
         'pulseID': pulseID,
         'timestamp': timestamp,
         'timestamp_format': timestamp_format,
-        'IQ_data': IQ_data
+        'I': I_data,
+        'Q': Q_data
         })
 
 def main():
@@ -55,8 +42,11 @@ def main():
     for i in [1,2]:
         # reads in the data from the csv file
         csv_file = "pulse_short_"+str(i)+".csv"
-        IQ_data = pd.read_csv(csv_file).to_dict(orient='list')
-        append_pulse(pulse_dict,IQ_data,pulseID=i)
+        IQ_data = pd.read_csv(csv_file)
+        I_data=IQ_data['I'].tolist()
+        Q_data=IQ_data['Q'].tolist()
+
+        append_pulse(pulse_dict,I_data,Q_data,pulseID=i)
         # read_pulse_from_csv(pulse_dict, csv_file, i)
 
     # # reads in the data from the csv file

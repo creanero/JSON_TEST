@@ -12,7 +12,8 @@ def main ():
         print (data)
         for p in data['pulses']:
             pulseID = p['pulseID']
-            IQ_pulse = pd.DataFrame(p['IQ_data'])
+            IQ_pulse = pd.DataFrame(list(zip(p['I'],p['Q'])))
+            IQ_pulse.columns=['I','Q']
             print ('Pulse:\t'+ str(pulseID))
             print (IQ_pulse)
 
